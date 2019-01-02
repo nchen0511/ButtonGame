@@ -2,13 +2,13 @@ package sample;
 
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import java.awt.*;
 import java.util.ArrayList;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 
 public class BackEnd {
@@ -38,26 +38,19 @@ public class BackEnd {
         three.setVisible(true);
         four.setVisible(true);
 
+        one.setStyle("-fx-background-color:white");
+        two.setStyle("-fx-background-color:white");
+        three.setStyle("-fx-background-color:white");
+        four.setStyle("-fx-background-color:white");
+
         gameState = true;
         runGame();
     }
 
     public void runGame(){
-        AnimationTimer play = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                
-            }
-        };
-
-        while(gameState){
-            playing = true;
-
-
-            playing = false;
-            while(!playing){
-            }
-        }
+        final Timeline time = new Timeline();
+        time.setCycleCount(time.INDEFINITE);
+        computerPattern.add(1);
     }
 
     public void one(ActionEvent actionEvent){
