@@ -1,0 +1,9 @@
+.root{
+    -fx-background-color:pink;
+}
+.label{
+    -fx-font-size: 50;
+}
+.button{
+    -fx-width: 20;
+}
