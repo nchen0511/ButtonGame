@@ -13,6 +13,6 @@
     <Button GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="one" onAction="#one" visible="false"></Button>
     <Button GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="two" onAction="#two" visible="false"></Button>
 
-    <Button GridPane.rowIndex="2" GridPane.columnIndex="0" fx:id="three" onAction="#one" visible="false"></Button>
-    <Button GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="four" onAction="#two" visible="false"></Button>
+    <Button GridPane.rowIndex="2" GridPane.columnIndex="0" fx:id="three" onAction="#three" visible="false"></Button>
+    <Button GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="four" onAction="#four" visible="false"></Button>
 </GridPane>

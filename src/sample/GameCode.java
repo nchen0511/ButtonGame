@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 public class GameCode extends Application {
 
+    Stage window;
+    Scene scene1, scene2;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));

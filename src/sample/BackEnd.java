@@ -1,6 +1,7 @@
 package sample;
 
 
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -22,10 +23,12 @@ public class BackEnd {
 
     public Label message;
 
-    public boolean gameState;
     public boolean playing;
-    public ArrayList<Integer> computerPattern = new ArrayList<>();
-    public ArrayList<Integer> playerPattern = new ArrayList<>();
+    public double tick = 0;
+    public int points = 0;
+    public int lastIndex = 0;
+    public int index = 0;
+    public ArrayList<Integer> pattern = new ArrayList<>();
 
     public void startGame(ActionEvent actionEvent){
         start.setVisible(false);
@@ -43,26 +46,151 @@ public class BackEnd {
         three.setStyle("-fx-background-color:white");
         four.setStyle("-fx-background-color:white");
 
-        gameState = true;
+        message.setText("Score: " + points);
         runGame();
     }
 
     public void runGame(){
-        final Timeline time = new Timeline();
-        time.setCycleCount(time.INDEFINITE);
-        computerPattern.add(1);
+        playing = false;
+        message.setText("Score: " + points + "\nPay Attention");
+        index = 0;
+        for(int i=0;i<points+1;i++) {
+            pattern.add((int) (Math.random() * 4) + 1);
+        }
+
+        AnimationTimer simon = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+
+                if(pattern.size()!=index) {
+                    while(tick>0) {
+                        tick=tick-0.1;
+                    }
+                        tick=100000000;
+
+                        if(lastIndex==1){
+                            one.setStyle("-fx-background-color:white");
+                            lastIndex = 1;
+                        } else if (lastIndex==2){
+                            two.setStyle("-fx-background-color:white");
+                            lastIndex = 2;
+                        } else if (lastIndex==3) {
+                            three.setStyle("-fx-background-color:white");
+                            lastIndex = 3;
+                        } else if (lastIndex==4) {
+                            four.setStyle("-fx-background-color:white");
+                            lastIndex = 4;
+                        }
+
+                        if(pattern.get(index)==1){
+                            one.setStyle("-fx-background-color:red");
+                            lastIndex = 1;
+                        } else if (pattern.get(index)==2){
+                            two.setStyle("-fx-background-color:red");
+                            lastIndex = 2;
+                        } else if (pattern.get(index)==3) {
+                            three.setStyle("-fx-background-color:red");
+                            lastIndex = 3;
+                        } else if (pattern.get(index)==4) {
+                            four.setStyle("-fx-background-color:red");
+                            lastIndex = 4;
+                        }
+
+                        index++;
+                } else {
+
+                    while(tick>0) {
+                        tick=tick-0.1;
+                    }
+                    if(lastIndex==1){
+                        one.setStyle("-fx-background-color:white");
+                        lastIndex = 1;
+                    } else if (lastIndex==2){
+                        two.setStyle("-fx-background-color:white");
+                        lastIndex = 2;
+                    } else if (lastIndex==3) {
+                        three.setStyle("-fx-background-color:white");
+                        lastIndex = 3;
+                    } else if (lastIndex==4) {
+                        four.setStyle("-fx-background-color:white");
+                        lastIndex = 4;
+                    }
+
+                    playing = true;
+                    message.setText("Go Ahead");
+                    this.stop();
+                }
+
+            }
+        };
+        simon.start();
     }
 
     public void one(ActionEvent actionEvent){
-        if(!playing){
-            playerPattern.add(1);
+        if(playing){
+            if(pattern.get(0)==1){
+                pattern.remove(0);
+                if(pattern.size()==0){
+                    addScore();
+                    runGame();
+                }
+            } else {
+                lose();
+            }
         }
     }
 
     public void two(ActionEvent actionEvent){
-
+        if(playing){
+            if(pattern.get(0)==2){
+                pattern.remove(0);
+                if(pattern.size()==0){
+                    addScore();
+                    runGame();
+                }
+            } else {
+                lose();
+            }
+        }
     }
 
+    public void three(ActionEvent actionEvent){
+        if(playing){
+            if(pattern.get(0)==3){
+                pattern.remove(0);
+                if(pattern.size()==0){
+                    addScore();
+                    runGame();
+                }
+            } else {
+                lose();
+            }
+        }
+    }
+
+    public void four(ActionEvent actionEvent){
+        if(playing){
+            if(pattern.get(0)==4){
+                pattern.remove(0);
+                if(pattern.size()==0){
+                    addScore();
+                    runGame();
+                }
+            } else {
+                lose();
+            }
+        }
+    }
+
+    public void addScore(){
+        points++;
+        message.setText("Score: " + points + "\nGo Ahead");
+    }
+
+    public void lose(){
+        message.setText("Game Over! Final Score: " + points);
+        playing = false;
+    }
     public void showScore(ActionEvent actionEvent){
         start.setVisible(false);
         score.setVisible(false);
