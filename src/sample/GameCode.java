@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+import static sample.BackEnd.readScore;
+
 public class GameCode extends Application {
 
     Stage window;
@@ -206,11 +208,13 @@ public class GameCode extends Application {
     public void lose(){
         message.setText("Game Over! Final Score: " + points);
         playing = false;
+        start.setVisible(true);
+        score.setVisible(true);
+        start.setManaged(true);
+        score.setManaged(true);
     }
+
     public void showScore(ActionEvent actionEvent){
-        start.setVisible(false);
-        score.setVisible(false);
-        start.setManaged(false);
-        score.setManaged(false);
+        message.setText(readScore());
     }
 }
