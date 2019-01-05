@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 import static sample.BackEnd.readScore;
+import static sample.BackEnd.updateScore;
 
 public class GameCode extends Application {
 
@@ -64,12 +65,18 @@ public class GameCode extends Application {
         three.setStyle("-fx-background-color:white");
         four.setStyle("-fx-background-color:white");
 
+        points = 0;
+        lastIndex = 0;
+        index = 0;
+
         message.setText("Score: " + points);
+
         runGame();
     }
 
     public void runGame(){
         playing = false;
+
         message.setText("Score: " + points + "\nPay Attention");
         index = 0;
         for(int i=0;i<points+1;i++) {
@@ -102,15 +109,27 @@ public class GameCode extends Application {
 
                     if(pattern.get(index)==1){
                         one.setStyle("-fx-background-color:red");
+                        if(index%2==0) {
+                            one.setStyle("-fx-background-color:blue");
+                        }
                         lastIndex = 1;
                     } else if (pattern.get(index)==2){
                         two.setStyle("-fx-background-color:red");
+                        if(index%2==0) {
+                            two.setStyle("-fx-background-color:blue");
+                        }
                         lastIndex = 2;
                     } else if (pattern.get(index)==3) {
                         three.setStyle("-fx-background-color:red");
+                        if(index%2==0) {
+                            three.setStyle("-fx-background-color:blue");
+                        }
                         lastIndex = 3;
                     } else if (pattern.get(index)==4) {
                         four.setStyle("-fx-background-color:red");
+                        if(index%2==0) {
+                            four.setStyle("-fx-background-color:blue");
+                        }
                         lastIndex = 4;
                     }
 
@@ -212,9 +231,24 @@ public class GameCode extends Application {
         score.setVisible(true);
         start.setManaged(true);
         score.setManaged(true);
+
+        one.setVisible(false);
+        two.setVisible(false);
+        three.setVisible(false);
+        four.setVisible(false);
+
+        updateScore(points);
+
+        pattern.clear();
     }
 
     public void showScore(ActionEvent actionEvent){
-        message.setText(readScore());
+        ArrayList<String> scores = readScore();
+        String str = "";
+        for(int i=0;i<scores.size();i++){
+            str+=scores.get(i)+"\n";
+        }
+
+        message.setText(str);
     }
 }
